@@ -1,12 +1,10 @@
 # CurioSync_LLM
 
-❯ tree -a -I "node_modules|.next|.git|.pytest_cache|static" -L 2
+<pre>
 .
-├── .devcontainer
-│   └── devcontainer.json
-├── .env
-├── .github
-│   ├── action
-│   ├── release-drafter.yml
-│   └── workflows
-├── .gitignore
+├── xxx
+├── xxx
+└── README.md
+</pre>
+
+
