@@ -1,2 +1,3 @@
 # .gitignore（プロジェクトのルートに配置）
 .env
+.wav
