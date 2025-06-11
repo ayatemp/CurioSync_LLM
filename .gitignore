@@ -1,3 +1,6 @@
 # .gitignore（プロジェクトのルートに配置）
 .env
 .wav
+
+public/IRM/MacGyverSemanticProbing
+public/IRM/RM/train_logs
