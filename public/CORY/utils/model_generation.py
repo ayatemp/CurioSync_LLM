@@ -3,6 +3,19 @@ from transformers import Adafactor
 
 from trl import AutoModelForCausalLMWithValueHead, PPOTrainer
 
+"""
+--------------generate_pretrained_modelの説明--------------
+最初のやつはホトンフォ使われずにelseの方が使われる．これは元となるLLMをそのままconfigファイルから撮ってきて作成するやつ
+
+optimizerによってlossを計算してから勾配を計算するときの最適な学習率などの別のパラメータを自動的にしてくれる
+
+ppo_trainerはtrl/ppo_trainer.pyに定義されている．（これも読まないといけないっぽい？
+"""
+
+"""
+-----------------generate_peft_modelの説明-----------------
+
+"""
 
 class Model_Generator:
     def __init__(self, tokenizer, dataset, collator):

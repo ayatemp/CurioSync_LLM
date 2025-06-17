@@ -45,6 +45,7 @@ from utils.text_generation import AgentManager, Ranker
 
 tqdm.pandas()
 
+#　実験のための名前を表示するやつ
 random_name = str(random.random()).split('.')[1]
 exp_class = 'extensive-game-' + random_name
 
@@ -59,6 +60,19 @@ if not os.path.exists(temp_model_name_2):
     os.makedirs(temp_model_name_2)
 
 
+# ターミナルでハイパーパラメータを入力するためのもの
+"""
+datasetは__init__()を書く必要がなく，定義したものが全てクラスのselfとして入ってくる．
+ただ，datasetを定義するときに色々書かなくちゃいけないめんどくさいものがあるので無駄っぽいものが色々入っている
+
+PPOConfigはHugging Face TRLライブラリにあるPPO用の設定クラスのこと
+これを使ってPPOの設定を簡単にできるらしい．（MARLで適応する時はこれを利用するんじゃないのか...?）
+
+use_seq2seqは単純にBARTなどのエンコーダデコーダ型を使うかどうか（翻訳タスクとか）
+use_peftは学習方法がすべてのパラメータを更新するのか，LoRA層だけを学習するのかを決める（今回はLoRAだけ）
+
+peft_configはLoRAの設定をまとめたオブジェクト
+"""
 @dataclass
 class ScriptArguments:
     # NOTE Set your model name and exp name here 
@@ -99,16 +113,20 @@ class ScriptArguments:
             task_type="CAUSAL_LM",
         ),
     )
+    #　ネットからなんかモデルを引っ張るかどうからしい（通常はfalse）
     trust_remote_code: bool = field(default=False, metadata={"help": "Enable `trust_remote_code`"})
 
     # Training loop control parameters
+    # モデルをいつ評価するのかと，いつモデルの役割を変更するのか
     eval_freq: Optional[int] = field(default=7, metadata={"help": "n steps to evaluate the model"})
     swap_freq: Optional[int] = field(default=5, metadata={"help": "n steps to swap the model"})
 
     # Optimization parameters
+    # adafactorとはadam系のメモリ使用量を削減できるやつ．今回はFalse
     adafactor: Optional[bool] = field(default=False, metadata={"help": "Use Adafactor optimizer"})
 
     # Duo training parameters
+    # これが重要で，スワップするときにモデルを一回保存してスワップしてから再度読み込むために用意したやつ．
     temp_model_name_1: Optional[str] = field(default=temp_model_name_1,
                                              metadata={"help": "the temp model name of LLM-1(but may be changed)"})
     temp_model_name_2: Optional[str] = field(default=temp_model_name_2,
@@ -118,7 +136,16 @@ class ScriptArguments:
     # Wandb grouping
     group: Optional[str] = field(default="imdb-extensive-game", metadata={"help": "Wandb grouping"})
 
+"""
+argsにさっき定義したクラスを渡すことでターミナルから渡されたオプションを自動的に解釈し，その結果を属性としてもつargsオブジェクトの定義がされる
+だからdatasetでは割と型だけ定義しておけば後でこっちが変数を変更することができる．
 
+シード値の固定をすることで，同じ初期重みを再現することができるようになる．今回はすでに用意してあるseedを使うことで最適なseedにすることができる
+
+感情分析パイプラインへの細かい設定
+
+モデルのクラスを動的に選択．
+"""
 args = tyro.cli(ScriptArguments)
 set_seed(args.ppo_config.seed)
 
@@ -129,16 +156,15 @@ trl_model_class = AutoModelForCausalLMWithValueHead if not args.use_seq2seq else
 
 def build_dataset(config, query_dataset, input_min_text_length=2, input_max_text_length=8):
     """
-    Build dataset for training. This builds the dataset from `load_dataset`, one should
-    customize this function to train the model on its own dataset.
+    ここでは強化学習エージェントへのクエリとして使える形に加工する．
+    eosはend of sequenceね
 
-    Args:
-        query_dataset (`str`):
-            The name of the dataset to be loaded.
+    今回とってくるデータセットはhugging face datasetsライブラリのIMDbの訓練セット（カラムの変更もしている）
+    IMDbが感情を分析するためのデータセットらしい．あと，短すぎるレビューを除外している
+    なんかランダムに違う長さのレビューをクエリとして学習を回すらしい
 
-    Returns:
-        dataloader (`torch.utils.data.DataLoader`):
-            The dataloader for the dataset.
+    あとはトークンIDへの変更とIDからクエリへの変更
+    そしてそこからすべてのトークンを変換し，pytorch型にして学習できるようにする
     """
     tokenizer = AutoTokenizer.from_pretrained(config.model_name)
     tokenizer.pad_token = tokenizer.eos_token
@@ -166,10 +192,15 @@ dataset = build_dataset(args.ppo_config, args.ppo_config.query_dataset)
 def collator(data):
     return dict((key, [d[key] for d in data]) for key in data[0])
 
-
+# Acceleratorってやつが，どのデバイスを学習中に使うべきかを取得することができるやつらしい
 current_device = Accelerator().local_process_index
 
 # Now let's build the model, the reference model, and the tokenizer.
+"""
+LoRAを使うか使わないかで変わってくるらしい
+LoRAを使わない，つまりモデルのすべてのパラメータを調整する場合は上，LoRAなら下って感じ．
+単純にモデルを持ってくるか，LoRAをつけるかって感じ
+"""
 if not args.use_peft:
     ref_model = trl_model_class.from_pretrained(args.ppo_config.model_name, trust_remote_code=args.trust_remote_code)
     device_map = None
@@ -190,6 +221,7 @@ else:
 tokenizer = AutoTokenizer.from_pretrained(args.ppo_config.model_name)
 tokenizer.pad_token_id = tokenizer.eos_token_id
 
+# utils/model_generation.pyに定義されているらしい
 model_generator = Model_Generator(tokenizer, dataset, collator)
 
 model_1, optimizer_1, ppo_trainer_1, device_1 = model_generator.generate_pretrained_model(
