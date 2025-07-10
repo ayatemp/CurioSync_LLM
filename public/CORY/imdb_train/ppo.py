@@ -42,14 +42,28 @@ import torch
 import tyro
 import wandb
 from accelerate import Accelerator
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk
+
 from peft import LoraConfig
 from tqdm import tqdm
 from transformers import AutoTokenizer, pipeline
 
-from trl import AutoModelForCausalLMWithValueHead, AutoModelForSeq2SeqLMWithValueHead, PPOConfig, PPOTrainer, set_seed
+from trl import AutoModelForCausalLMWithValueHead, AutoModelForSeq2SeqLMWithValueHead, PPOConfig, PPOTrainer
+from transformers import set_seed
 from trl.core import LengthSampler
-from trl.import_utils import is_npu_available, is_xpu_available
+
+
+#--- ここから差し替え ---
+try:
+    from trl.import_utils import is_npu_available, is_xpu_available
+except ImportError:
+    # WindowsではNPU/XPU非対応のため、常にFalseを返すダミー実装
+    def is_npu_available(): 
+        return False
+    def is_xpu_available(): 
+        return False
+#--- ここまで差し替え ---
+
 
 tqdm.pandas()
 

@@ -1,0 +1,40 @@
+{
+  "os": "Windows-10-10.0.26100-SP0",
+  "python": "CPython 3.10.18",
+  "startedAt": "2025-07-04T13:19:56.404874Z",
+  "program": "d:\\github\\CurioSync_LLM\\public\\LocalLLM\\02_trainPPO.ipynb",
+  "codePath": "public\\LocalLLM\\02_trainPPO.ipynb",
+  "codePathLocal": "02_trainPPO.ipynb",
+  "git": {
+    "remote": "https://github.com/ayatemp/CurioSync_LLM.git",
+    "commit": "1b5ac1a6cd921cd8a5fd440ce6986afc388d8818"
+  },
+  "email": "ayato.kaku@gmail.com",
+  "root": "d:\\github\\CurioSync_LLM\\public\\LocalLLM",
+  "host": "MYCOMPUTER",
+  "executable": "c:\\Users\\ayato\\anaconda3\\envs\\llama7b\\python.exe",
+  "cpu_count": 24,
+  "cpu_count_logical": 32,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "4000768323584",
+      "used": "4020011008"
+    }
+  },
+  "memory": {
+    "total": "68555825152"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4090",
+      "memoryTotal": "25757220864",
+      "cudaCores": 16384,
+      "architecture": "Ada",
+      "uuid": "GPU-9db8a8e2-a823-af3a-9047-2908cb95f7c0"
+    }
+  ],
+  "cudaVersion": "12.9",
+  "writerId": "l4qjowljw6byd828gk7i2rc941cherne"
+}

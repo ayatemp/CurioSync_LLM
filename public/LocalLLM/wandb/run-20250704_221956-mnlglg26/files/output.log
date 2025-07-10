@@ -1,0 +1,5 @@
+You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+c:\Users\ayato\anaconda3\envs\llama7b\lib\site-packages\transformers\integrations\sdpa_attention.py:66: UserWarning: 1Torch was not compiled with flash attention. (Triggered internally at ..\aten\src\ATen\native\transformers\cuda\sdp_utils.cpp:455.)
+  attn_output = torch.nn.functional.scaled_dot_product_attention(
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.

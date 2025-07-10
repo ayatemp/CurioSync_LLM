@@ -1,0 +1,43 @@
+2025-07-04 22:19:56,417 INFO    MainThread:500 [wandb_setup.py:_flush():80] Current SDK version is 0.21.0
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_setup.py:_flush():80] Configure stats pid to 500
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_setup.py:_flush():80] Loading settings from C:\Users\ayato\.config\wandb\settings
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_setup.py:_flush():80] Loading settings from d:\github\CurioSync_LLM\public\LocalLLM\wandb\settings
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_setup.py:_flush():80] Loading settings from environment variables
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_init.py:setup_run_log_directory():703] Logging user logs to d:\github\CurioSync_LLM\public\LocalLLM\wandb\run-20250704_221956-mnlglg26\logs\debug.log
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_init.py:setup_run_log_directory():704] Logging internal logs to d:\github\CurioSync_LLM\public\LocalLLM\wandb\run-20250704_221956-mnlglg26\logs\debug-internal.log
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_init.py:monkeypatch_ipython():622] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x00000131719FC7C0>
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_init.py:init():830] calling init triggers
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_init.py:init():835] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-07-04 22:19:56,418 INFO    MainThread:500 [wandb_init.py:init():871] starting backend
+2025-07-04 22:19:59,487 INFO    MainThread:500 [wandb_init.py:init():874] sending inform_init request
+2025-07-04 22:19:59,495 INFO    MainThread:500 [wandb_init.py:init():882] backend started and connected
+2025-07-04 22:19:59,496 INFO    MainThread:500 [wandb_run.py:_label_probe_notebook():1304] probe notebook
+2025-07-04 22:19:59,504 INFO    MainThread:500 [wandb_init.py:init():953] updated telemetry
+2025-07-04 22:19:59,526 INFO    MainThread:500 [wandb_init.py:init():977] communicating run to backend with 90.0 second timeout
+2025-07-04 22:20:01,446 INFO    MainThread:500 [wandb_init.py:init():1029] starting run threads in backend
+2025-07-04 22:20:01,554 INFO    MainThread:500 [wandb_run.py:_console_start():2458] atexit reg
+2025-07-04 22:20:01,554 INFO    MainThread:500 [wandb_run.py:_redirect():2306] redirect: wrap_raw
+2025-07-04 22:20:01,554 INFO    MainThread:500 [wandb_run.py:_redirect():2375] Wrapping output streams.
+2025-07-04 22:20:01,554 INFO    MainThread:500 [wandb_run.py:_redirect():2398] Redirects installed.
+2025-07-04 22:20:01,556 INFO    MainThread:500 [wandb_init.py:init():1075] run started, returning control to user process
+2025-07-04 22:20:01,556 INFO    MainThread:500 [wandb_run.py:_config_callback():1363] config_cb None None {'trl_ppo_trainer_config': {'exp_name': 'ipykernel_launcher', 'seed': 0, 'log_with': 'wandb', 'task_name': None, 'model_name': 'gpt2', 'query_dataset': 'imdb', 'reward_model': 'sentiment-analysis:lvwerra/distilbert-imdb', 'remove_unused_columns': True, 'tracker_project_name': 'trl', 'steps': 20000, 'learning_rate': 1e-05, 'adap_kl_ctrl': True, 'init_kl_coef': 0.1, 'kl_penalty': 'kl', 'target': 6, 'horizon': 10000, 'gamma': 1, 'lam': 0.95, 'cliprange': 0.2, 'cliprange_value': 0.2, 'vf_coef': 0.1, 'batch_size': 4, 'forward_batch_size': None, 'mini_batch_size': 1, 'gradient_accumulation_steps': 4, 'world_size': 1, 'ppo_epochs': 4, 'max_grad_norm': None, 'optimize_cuda_cache': None, 'optimize_device_cache': False, 'early_stopping': True, 'target_kl': 6.0, 'compare_steps': 1, 'ratio_threshold': 10.0, 'use_score_scaling': False, 'use_score_norm': False, 'score_clip': None, 'whiten_rewards': False, 'gradient_checkpointing': False, 'is_encoder_decoder': False, 'is_peft_model': True, 'backward_batch_size': 4, 'global_backward_batch_size': 4, 'global_batch_size': 4, 'total_ppo_epochs': 5000}}
+2025-07-04 22:20:01,631 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend
+2025-07-04 22:20:01,642 INFO    MainThread:500 [jupyter.py:save_ipynb():404] [no run ID] not saving jupyter notebook
+2025-07-04 22:20:01,642 INFO    MainThread:500 [wandb_init.py:_pre_run_cell_hook():581] [no run ID] pausing backend
+2025-07-04 22:20:01,913 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend
+2025-07-04 22:20:52,628 INFO    MainThread:500 [jupyter.py:save_ipynb():404] [no run ID] not saving jupyter notebook
+2025-07-04 22:20:52,628 INFO    MainThread:500 [wandb_init.py:_pre_run_cell_hook():581] [no run ID] pausing backend
+2025-07-04 22:20:52,650 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend
+2025-07-04 22:21:06,701 INFO    MainThread:500 [jupyter.py:save_ipynb():404] [no run ID] not saving jupyter notebook
+2025-07-04 22:21:06,702 INFO    MainThread:500 [wandb_init.py:_pre_run_cell_hook():581] [no run ID] pausing backend
+2025-07-04 22:21:06,763 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend
+2025-07-04 22:21:49,376 INFO    MainThread:500 [jupyter.py:save_ipynb():404] [no run ID] not saving jupyter notebook
+2025-07-04 22:21:49,377 INFO    MainThread:500 [wandb_init.py:_pre_run_cell_hook():581] [no run ID] pausing backend
+2025-07-04 22:21:49,399 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend
+2025-07-04 22:24:05,422 INFO    MainThread:500 [jupyter.py:save_ipynb():404] [no run ID] not saving jupyter notebook
+2025-07-04 22:24:05,423 INFO    MainThread:500 [wandb_init.py:_pre_run_cell_hook():581] [no run ID] pausing backend
+2025-07-04 22:25:13,320 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend
+2025-07-04 22:26:35,571 INFO    MainThread:500 [jupyter.py:save_ipynb():404] [no run ID] not saving jupyter notebook
+2025-07-04 22:26:35,571 INFO    MainThread:500 [wandb_init.py:_pre_run_cell_hook():581] [no run ID] pausing backend
+2025-07-04 22:37:21,270 INFO    MainThread:500 [wandb_init.py:_post_run_cell_hook():592] [no run ID] resuming backend

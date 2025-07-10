@@ -1,4 +1,4 @@
-name: trl
+Aname: trl
 channels:
   - pytorch
   - nvidia
@@ -200,3 +200,4 @@ dependencies:
       - xxhash==3.4.1
       - yarl==1.9.4
 prefix: /home/hutianyi/anaconda3/envs/trl
+                                                        
